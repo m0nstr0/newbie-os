@@ -1,4 +1,4 @@
-GPPPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -nostdinc -fno-builtin -fno-stack-protector -fno-rtti -fno-exceptions -fno-leading-underscore
+GPPPARAMS = -m32 -ffreestanding -fno-rtti -fno-exceptions -O2 -Wall -Wextra -Werror
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
@@ -12,6 +12,8 @@ objects = loader.o kernel.o
 
 kernel.bin: linker.ld $(objects)
 	ld $(LDPARAMS) -T $< -o $@ $(objects)
+
+all: kernel.bin
 
 install: kernel.bin
 	mkdir -p iso/boot/grub

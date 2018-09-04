@@ -3,6 +3,7 @@
 */
 .section .multiboot
 header_start:
+    .align 8
     .long 0xe85250d6                                                   #multiboot magic
     .long 0x0                                                          #architecture
     .long header_start - header_end                                    #length
@@ -21,10 +22,17 @@ header_end:
 .global _start
 
 _start:
-    cli
-    push %eax
-    push %ebx
+    mov $stack, %esp
+    #push %eax
+    #push %ebx
     call kernel_main
-    
+    cli
+
 _stop:
+    hlt
     jmp _stop
+
+.section .bss
+.align 16
+.space 16384
+stack:

@@ -16,6 +16,11 @@ SECTIONS
         *(.text)
     }
 
+    .rodata :
+	{
+		*(.rodata)
+	}
+
     .data : 
     {
         *(.data)
@@ -23,6 +28,7 @@ SECTIONS
 
     .bss : 
     {
+        *(COMMON)
         *(.bss)
     }
 }
